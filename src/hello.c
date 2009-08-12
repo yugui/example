@@ -28,13 +28,14 @@ static const struct option longopts[] =
   { "help", no_argument, NULL, 'h' },
   { "next-generation", no_argument, NULL, 'n' },
   { "traditional", no_argument, NULL, 't' },
+  { "camp", no_argument, NULL, 'c' },
   { "version", no_argument, NULL, 'v' },
   { NULL, 0, NULL, 0 }
 };
 
 /* Different types of greetings; only one per invocation.  */
 typedef enum {
-  greet_gnu, greet_new, greet_traditional, greet_user
+  greet_gnu, greet_new, greet_traditional, greet_camp, greet_user
 } greeting_type;
 
 /* Forward declarations.  */
@@ -66,7 +67,7 @@ main (int argc, char *argv[])
      This is implemented in the Gnulib module "closeout".  */
   atexit (close_stdout);
 
-  while ((optc = getopt_long (argc, argv, "g:hntv", longopts, NULL)) != -1)
+  while ((optc = getopt_long (argc, argv, "g:hntvc", longopts, NULL)) != -1)
     switch (optc)
       {
       /* --help and --version exit immediately, per GNU coding standards.  */
@@ -87,6 +88,9 @@ main (int argc, char *argv[])
         break;
       case 't':
         g = greet_traditional;
+        break;
+      case 'c':
+        g = greet_camp;
         break;
       default:
         lose = 1;
@@ -126,6 +130,9 @@ main (int argc, char *argv[])
 
   else if (g == greet_gnu)
     puts (_("Hello, world!"));
+
+  else if (g == greet_camp)
+    puts (_("Good morning, Programming Camp!"));
   
   else {
     /* No need for this impossible message to be translated.  */
@@ -168,6 +175,7 @@ Print a friendly, customizable greeting.\n"), stdout);
   fputs (_("\
   -t, --traditional       use traditional greeting format\n\
   -n, --next-generation   use next-generation greeting format\n\
+  -c, --camp              use greeting format for the camp\n\
   -g, --greeting=TEXT     use TEXT as the greeting message\n"), stdout);
 
   printf ("\n");
