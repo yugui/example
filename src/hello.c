@@ -117,7 +117,7 @@ main (int argc, char *argv[])
     */
 	printf (_("\
 +-----------------+\n\
-| Hello, world!!! |\n\
+| hello, world!!! |\n\
 +-----------------+\n\
 "));
 
